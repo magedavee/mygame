@@ -36,7 +36,7 @@ Graphics::Graphics()
                 std::cout<<"graphics ok\n";
         }
 
-	text=loadTexture("texture.png");
+	text=loadTexture("./res/texture.png");
 	for(int y=0;y<25;++y)
 	{
 		for(int x=0;x<25;++x)
