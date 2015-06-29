@@ -5,6 +5,6 @@
 #include <GL/freeglut.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "SDL/SDL_opengl.h"
+#include "SDL2/SDL_opengl.h"
 
 #endif

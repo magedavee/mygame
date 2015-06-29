@@ -58,12 +58,13 @@ endif(NOT OPENGL_FOUND)
 
 add_library(GameLib SHARED ${sources} ${headers})
 link_directories(${LIBRARY_OUTPUT_PATH})
-target_link_libraries(GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${SDL2_LIBRARY} ${SDL2_TTF_LIBRARY} ${SDL2_IMAGE_LIBRARY} )
+target_link_libraries(GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${SDL2_LIBRARY}
+    ${SDL2_TTF_LIBRARY} ${SDL2_IMAGE_LIBRARY} X11)
 
 add_executable(my_game ${PROJECT_SOURCE_DIR}/main.cpp)
 
 
-target_link_libraries(my_game GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} )
+target_link_libraries(my_game GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} X11)
 
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
