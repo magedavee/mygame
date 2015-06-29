@@ -35,24 +35,11 @@ Graphics::Graphics()
                 if(DEBUG)
                 std::cout<<"graphics ok\n";
         }
-
-	text=loadTexture("./res/texture.png");
-	for(int y=0;y<25;++y)
-	{
-		for(int x=0;x<25;++x)
-			text->changePixel(x,y,0xff,0,0,0xff);
-	}
-	updateTexture(text);
-	if(text==NULL)
-	{
-		std::cout<<"loadTexture fail "<<endl;
-	}
 	void EnableTransparency();
 }
 
 Graphics::~Graphics()
 {
-	delete text;
 }
 
 
@@ -151,7 +138,6 @@ void Graphics::render()
         	glDrawArrays( GL_QUADS, 0, 4 );
 	glDisableClientState( GL_VERTEX_ARRAY );*/
 	glLoadIdentity();
-	text->render();	
 	//Move to center of the screen 
 	glTranslatef( SCREENWIDTH / 2.f, SCREENHEIGHT / 2.f, 0.f );
 	//Render quad

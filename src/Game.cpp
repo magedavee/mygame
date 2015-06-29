@@ -22,6 +22,18 @@ Game::Game()
 	
 	
 	this->graphics=new Graphics();
+
+	text=graphics->loadTexture("/home/mage/Workspace/mygame-build/res/magus.png");
+	for(int y=0;y<25;++y)
+	{
+		for(int x=0;x<25;++x)
+			text->changePixel(x,y,0xff,0,0,0xff);
+	}
+	graphics->updateTexture(text);
+	if(text==NULL)
+	{
+		std::cout<<"loadTexture fail "<<endl;
+	}
 	if(DEBUG)
 		std::cout<<"Creating game \n";
 }
@@ -61,6 +73,7 @@ Game::~Game()
 	if(DEBUG)
 		std::cout<<"game \n";
 	delete graphics;
+	delete text;
 	instance=NULL;
 }
 
@@ -105,7 +118,9 @@ void Game::update()
 
 
 void Game::render()
-{
+{ 
+	
+	text->render();	
 	this->graphics->render();
 }
 

@@ -25,7 +25,6 @@ class Graphics
 {
 protected:
 	SDL_Window* screen;
-	Texture* text;
 	SDL_GLContext context;
 	Uint32 getPixel(SDL_Surface *surface,int x,int y);
 public:

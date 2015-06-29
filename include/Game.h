@@ -5,7 +5,9 @@
 #define GAME_H_
 #include "Graphics.h"
 #include "SDLINC.h"
+#include "Texture.h"
 class Graphics;
+class Texture;
 
 
 
@@ -16,6 +18,7 @@ protected:
 private:
 	SDL_Event event;
 	Graphics *graphics;
+	Texture* text;
 	int argc;
 	char *args[];
 	void processCMDLine();
