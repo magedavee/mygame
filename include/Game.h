@@ -6,9 +6,10 @@
 #include "Graphics.h"
 #include "SDLINC.h"
 #include "Texture.h"
+#include "SpriteMap.h"
 class Graphics;
 class Texture;
-
+class SpriteMap;
 
 
 class Game
@@ -16,9 +17,11 @@ class Game
 protected:
 	Game();
 private:
+	int initGame();
 	SDL_Event event;
 	Graphics *graphics;
 	Texture* text;
+	SpriteMap * sprite;
 	int argc;
 	char *args[];
 	void processCMDLine();

@@ -2,14 +2,20 @@
 #define SPIRTEMAP_H
 
 #include <string>
+#include <vector>
 #include "Graphics.h"
-#include "Game.h"
-using namespace std;
+#include "Texture.h"
+class Texture;
 class SpriteMap
 {
+    protected:
+	Texture* map;
+	Rects render_rect;
+	vector<Rects> mesh;
     public:
-	SpriteMap(string * name);
+	SpriteMap(std::string * name);
 	~SpriteMap();
+	void render();
 };
 
 

@@ -1,11 +1,13 @@
-#include "SDLINC.h"
+#include <string>
 
+#include "SDLINC.h"
 #include <iostream>
 #include <string>
 #include "Game.h"
 #include "Attributes.h"
 #include "Graphics.h"
 #include "Timer.h"
+#include "SpriteMap.h"
 
 
 //#define DEBUG false//||DEBUG_ALL //set to true to turn on debug for this class only
@@ -21,19 +23,6 @@ Game::Game()
 	argc=0;
 	
 	
-	this->graphics=new Graphics();
-
-	text=graphics->loadTexture("/home/mage/Workspace/mygame-build/res/magus.png");
-	for(int y=0;y<25;++y)
-	{
-		for(int x=0;x<25;++x)
-			text->changePixel(x,y,0xff,0,0,0xff);
-	}
-	graphics->updateTexture(text);
-	if(text==NULL)
-	{
-		std::cout<<"loadTexture fail "<<endl;
-	}
 	if(DEBUG)
 		std::cout<<"Creating game \n";
 }
@@ -61,9 +50,11 @@ Game* Game::getInstance()
 	if(instance == NULL)
 	{
 		
+		instance= new Game();
+		int result=instance->initGame();
 		if(DEBUG)
 			std::cout<<"game \n";
-		instance= new Game();
+			std::cout<<result<<std::endl;
 	}
 	return instance;
 }
@@ -77,6 +68,26 @@ Game::~Game()
 	instance=NULL;
 }
 
+int Game::initGame()
+{
+
+	this->graphics=new Graphics();
+	string* name=new string("/home/mage/Pictures/GameSprites/res/magusSheet.png");
+	text=graphics->loadTexture("/home/mage/Pictures/GameSprites/res/magus.png");
+	this->sprite=new SpriteMap(name);
+	for(int y=0;y<25;++y)
+	{
+		for(int x=0;x<25;++x)
+			text->changePixel(x,y,0xff,0,0,0xff);
+	}
+	graphics->updateTexture(text);
+	if(text==NULL)
+	{
+		std::cout<<"loadTexture fail "<<endl;
+		return 1;
+	}
+	return 0;
+}
 void Game::mainGameLoop()
 {
 	bool quit=false;
@@ -120,7 +131,8 @@ void Game::update()
 void Game::render()
 { 
 	
-	text->render();	
+//	text->render();	
+	this->sprite->render();
 	this->graphics->render();
 }
 

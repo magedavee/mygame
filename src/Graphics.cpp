@@ -59,7 +59,7 @@ bool Graphics::init()
 	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 2 );
 	SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
 //	SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
-	screen =SDL_CreateWindow( "SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREENWIDTH, SCREENHEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+	screen =SDL_CreateWindow( "My Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREENWIDTH, SCREENHEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
 
         if(this->screen==NULL)
         {
@@ -127,8 +127,8 @@ bool Graphics::initGL()
 void Graphics::render()
 {
 	if(DEBUG)
-		std::cout<<"Render\n"; 
-	//Clear color buffer
+	    std::cout<<"Render\n"; 
+	    //Clear color buffer
 	glClear( GL_COLOR_BUFFER_BIT );
 /*	glEnableClientState( GL_VERTEX_ARRAY );
 		//Set vertex data
@@ -137,25 +137,25 @@ void Graphics::render()
         	//Draw quad using vertex data
         	glDrawArrays( GL_QUADS, 0, 4 );
 	glDisableClientState( GL_VERTEX_ARRAY );*/
-	glLoadIdentity();
+	    glLoadIdentity();
 	//Move to center of the screen 
-	glTranslatef( SCREENWIDTH / 2.f, SCREENHEIGHT / 2.f, 0.f );
 	//Render quad
-	glBegin( GL_QUADS );
-	glTexCoord2i(0, 0);
-	glVertex2f( -50.f, -50.f );
-	glTexCoord2i(1, 0);
-	glVertex2f(  50.f, -50.f );
-	glTexCoord2i(1, 1);
-	glVertex2f(  50.f,  50.f );
-	glTexCoord2i(0, 1);
-	glVertex2f( -50.f,  50.f );
-	glEnd();
+	    glTranslatef( SCREENWIDTH / 2.f, SCREENHEIGHT / 2.f, 0.f );
+	    glBegin( GL_QUADS );
+	    glTexCoord2f(.25, .25);
+	    glVertex2f( -250.f, -250.f );
+	    glTexCoord2f(.75, .25);
+	    glVertex2f(  250.f, -250.f );
+	    glTexCoord2f(.75, .75);
+	    glVertex2f(  250.f,  250.f );
+	    glTexCoord2f(.25,.75);
+	    glVertex2f( -250.f,  250.f );
+	    glEnd();
 
-	//Update screen
-	SDL_GL_SwapWindow( screen );
-//	SDL_GL_SwapBuffers();
-}
+	    //Update screen
+	    SDL_GL_SwapWindow( screen );
+}	
+
 
 
 Texture* Graphics::loadTexture(std::string filename)
@@ -205,13 +205,6 @@ Texture* Graphics::loadTexture(std::string filename)
 			mPixels[index]=getPixel(surface,x,y);
 		}
 	}
-	for(int y=0;y<128;++y)
-	{
-		for(int x=0;x<64;++x)
-		{
-			//texture->changePixel(x,y,0xff,0xff,0,0);	
-		}
-	}	
         // create one texture name
 	GLuint textureID;
         glGenTextures(1, &textureID);
@@ -344,4 +337,9 @@ bool Graphics::updateTexture(Texture* texture)
 		return true; 
 	}
 	return false;
+}
+
+void Graphics::addTexture(Texture *texture,Rects *clip)
+{
+
 }
