@@ -33,7 +33,14 @@ find_package(SDL2_image REQUIRED)
 include_directories(${SDL2_IMAGE_INCLUDE_DIR})
 
 ########################################################
-
+########################################################
+# FIND GLEW
+########################################################
+    find_package(GLEW REQUIRED)
+    if (GLEW_FOUND)
+	include_directories(${GLEW_INCLUDE_DIRS})
+	link_libraries(${GLEW_LIBRARIES})
+    endif()
 #########################################################
 # FIND GLUT
 #########################################################

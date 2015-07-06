@@ -1,11 +1,7 @@
 #include <string>
 #include <stdint.h>
-#include "OGL.h"
 #include "Attributes.h"
 #include "Graphics.h"
-#include "Game.h"
-#include "Texture.h"
-#include "SDLINC.h"
 #include <iostream>
 //#define DEBUG false||DEBUG_ALL
 
@@ -108,6 +104,17 @@ bool Graphics::init()
 
 bool Graphics::initGL()
 {
+	GLenum glewError = glewInit();
+	if( glewError != GLEW_OK )
+	{
+	    printf( "Error initializing GLEW! %s\n", glewGetErrorString( glewError ) );
+	    return false;
+	}
+	if( !GLEW_VERSION_2_1 )
+	{
+	    printf( "OpenGL 2.1 not supported!\n" );
+	    return false;
+	}
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho( 0.0, SCREENWIDTH, SCREENHEIGHT, 0.0, 1.0, -1.0 );

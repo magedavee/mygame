@@ -1,13 +1,10 @@
 #include <string>
 
-#include "SDLINC.h"
 #include <iostream>
 #include <string>
 #include "Game.h"
 #include "Attributes.h"
-#include "Graphics.h"
 #include "Timer.h"
-#include "SpriteMap.h"
 
 
 //#define DEBUG false//||DEBUG_ALL //set to true to turn on debug for this class only
