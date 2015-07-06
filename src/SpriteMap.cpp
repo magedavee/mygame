@@ -16,7 +16,7 @@ SpriteMap::~SpriteMap()
 {
 }
 
-void SpriteMap::render()
+void SpriteMap::bind()
 {
-    this->map->render();
+    this->map->bind();
 }

@@ -15,7 +15,7 @@ class SpriteMap
     public:
 	SpriteMap(std::string * name);
 	~SpriteMap();
-	void render();
+	void bind();
 };
 
 

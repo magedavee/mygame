@@ -131,8 +131,8 @@ void Game::update()
 void Game::render()
 { 
 	
-//	text->render();	
-	this->sprite->render();
+//	text->bind();	
+	this->sprite->bind();
 	this->graphics->render();
 }
 

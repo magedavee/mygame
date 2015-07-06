@@ -14,7 +14,7 @@ class Texture
 
 
 
-        void render();
+        void bind();
 
         uint32_t getID();
         void  setID(int id);

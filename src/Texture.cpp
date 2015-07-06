@@ -24,7 +24,7 @@ Texture::~Texture()
 }
 
 
-void Texture::render()
+void Texture::bind()
 {
 	Game::getInstance()->getGraphics()->bindTexture(this);
 }
