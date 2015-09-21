@@ -18,7 +18,7 @@ Game::Game()
 {
 	argc=0;
 	
-	this->graphMode=SDL;	
+	this->graphMode=OGL;	
 	if(DEBUG)
 		std::cout<<"Creating game \n";
 }
@@ -58,10 +58,15 @@ Game* Game::getInstance()
 Game::~Game()
 {
 	if(DEBUG)
-		std::cout<<"game \n";
-	delete graphics;
-	delete text;
-	instance=NULL;
+		std::cout<<"deleting game \n";
+
+	//if(DEBUG)
+		//std::cout<<"deleting graphics \n";
+	//delete graphics;
+	//if(DEBUG)
+		//std::cout<<"deleting text \n";
+	//delete text;
+	//instance=NULL;
 }
 
 int Game::initGame()
@@ -69,12 +74,12 @@ int Game::initGame()
 	switch(graphMode)
 	{
 	    case SDL:
-		if(DEBUG||true)
+		if(DEBUG)
 			cout<<"SDL graphics mode\n";
 		this->graphics=new GraphicsSDL();
 		break;
 	    case OGL:
-		if(DEBUG||true)
+		if(DEBUG)
 			cout<<"OpenGL graphics mode\n";
 		this->graphics=new GraphicsGL();
 		break;

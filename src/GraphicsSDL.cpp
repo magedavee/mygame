@@ -90,7 +90,6 @@ bool GraphicsSDL::init()
 
 void GraphicsSDL::render(Texture* text)
 {
-    cout<<"SDL render\n";
     //Clear screen
     SDL_RenderClear( gRenderer );
 

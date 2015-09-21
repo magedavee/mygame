@@ -18,20 +18,19 @@ GraphicsGL::GraphicsGL()
         glutInitWindowSize( SCREENWIDTH, SCREENHEIGHT );
         glutCreateWindow( "OpenGL" );
 */
-    cout<<"this OGL\n";
     if(DEBUG)
 	    cout<<"DEBUG is on in GraphicsGL\n";
-    //GLuint gVertexBuffer = 0;
-    //if(!this->init())
-    //{
-	    //std::cout<<"failed init of graphics.\n";
-    //}
-    //else
-    //{
-	    //if(DEBUG)
-	    //std::cout<<"graphics ok\n";
-    //}
-    //void EnableTransparency();
+    GLuint gVertexBuffer = 0;
+    if(!this->init())
+    {
+	    std::cout<<"failed init of graphics.\n";
+    }
+    else
+    {
+	    if(DEBUG)
+	    std::cout<<"graphics ok\n";
+    }
+    void EnableTransparency();
 }
 
 GraphicsGL::~GraphicsGL()
@@ -128,8 +127,7 @@ bool GraphicsGL::initGL()
 void GraphicsGL::render(Texture* text)
 {
     bindTexture(text);
-    cout<<"this render\n";
-/*    Vertex gQuadVertices[ 4 ];
+    Vertex gQuadVertices[ 4 ];
      //Set quad verticies 
     gQuadVertices[ 0 ].x = SCREENWIDTH * 1.f / 4.f; 
     gQuadVertices[ 0 ].y = SCREENHEIGHT * 1.f / 4.f; 
@@ -147,7 +145,7 @@ void GraphicsGL::render(Texture* text)
     //Draw quad using vertex data 
     glDrawArrays( GL_QUADS, 0, 4 ); 
     //Disable vertex arrays 
-    glDisableClientState( GL_VERTEX_ARRAY );*/
+    glDisableClientState( GL_VERTEX_ARRAY );
     if(DEBUG)
 	std::cout<<"Render\n"; 
 	//Clear color buffer
