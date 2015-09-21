@@ -1,15 +1,12 @@
-
-
-
 #ifndef GAME_H_
 #define GAME_H_
 #include "Graphics.h"
 #include "SDLINC.h"
 #include "Texture.h"
-#include "SpriteMap.h"
+#include "SpriteSheet.h"
 class Graphics;
 class Texture;
-class SpriteMap;
+class SpriteSheet;
 
 
 class Game
@@ -21,7 +18,7 @@ private:
 	SDL_Event event;
 	Graphics *graphics;
 	Texture* text;
-	SpriteMap * sprite;
+	SpriteSheet * sprite;
 	int argc;
 	char *args[];
 	void processCMDLine();
@@ -29,6 +26,11 @@ private:
 //	static Game *  instance;
 
 public:
+	enum GraphicsMode
+	{
+	    OGL,
+	    SDL
+	} graphMode;
 	char * assetDir;
 	static Game * getInstance();
 	static bool DEBUG_ALL,DEBUG_FPS,DEBUG,DEBUG_GRAPHICS;

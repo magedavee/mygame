@@ -16,7 +16,3 @@ SpriteSheet::~SpriteSheet()
 {
 }
 
-void SpriteSheet::bind()
-{
-    this->map->bind();
-}

@@ -15,7 +15,6 @@ class SpriteSheet
     public:
 	SpriteSheet(std::string * name);
 	~SpriteSheet();
-	void bind();
 };
 
 

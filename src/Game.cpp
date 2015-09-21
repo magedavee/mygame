@@ -11,15 +11,15 @@
 //#define DEBUG_FPS false||DEBUG //set to true to see fram per sec output
 
 static Game *  instance=NULL;
-bool Game::DEBUG=false;
 bool Game::DEBUG_ALL=false;
-bool Game::DEBUG_FPS=false;
+bool Game::DEBUG=false||Game::DEBUG_ALL;
+bool Game::DEBUG_FPS=false||Game::DEBUG_ALL;
 bool Game::DEBUG_GRAPHICS=false;
 Game::Game()
 {
 	argc=0;
 	
-	
+	this->graphMode=SDL;	
 	if(DEBUG)
 		std::cout<<"Creating game \n";
 }
@@ -67,17 +67,20 @@ Game::~Game()
 
 int Game::initGame()
 {
-
-	this->graphics=new Graphics();
-	string* name=new string("/home/mage/Pictures/GameSprites/res/magusSheet.png");
-	text=graphics->loadTexture("/home/mage/Pictures/GameSprites/res/magus.png");
-	this->sprite=new SpriteMap(name);
-	for(int y=0;y<25;++y)
+	switch(graphMode)
 	{
-		for(int x=0;x<25;++x)
-			text->changePixel(x,y,0xff,0,0,0xff);
+	    case SDL:
+		if(DEBUG||true)
+			cout<<"SDL graphics mode\n";
+		this->graphics=new GraphicsSDL();
+		break;
+	    case OGL:
+		if(DEBUG||true)
+			cout<<"OpenGL graphics mode\n";
+		this->graphics=new GraphicsGL();
+		break;
 	}
-	graphics->updateTexture(text);
+	text=graphics->loadTexture("/home/mage/Pictures/GameSprites/res/magusSheet.png");
 	if(text==NULL)
 	{
 		std::cout<<"loadTexture fail "<<endl;
@@ -97,6 +100,8 @@ void Game::mainGameLoop()
 		while(SDL_PollEvent(&event))//polling
 		{
 
+			if(DEBUG)
+			    cout<<"event type "<<event.type<<endl;
 			if(event.type==SDL_QUIT)//exit flag
 			{
 				cout<<"exiting\n";
@@ -128,9 +133,7 @@ void Game::update()
 void Game::render()
 { 
 	
-//	text->bind();	
-	this->sprite->bind();
-	this->graphics->render();
+	this->graphics->render(text);
 }
 
 Graphics* Game::getGraphics()

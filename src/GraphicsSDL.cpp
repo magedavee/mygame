@@ -5,7 +5,7 @@
 #include <iostream>
 //#define DEBUG false||DEBUG_ALL
 
-bool Graphics::DEBUG = false;
+//bool Graphics::DEBUG = false;
 
 GraphicsSDL::GraphicsSDL()
 {
@@ -31,7 +31,6 @@ GraphicsSDL::GraphicsSDL()
 	    if(DEBUG)
 	    std::cout<<"graphics ok\n";
     }
-    void EnableTransparency();
 }
 
 GraphicsSDL::~GraphicsSDL()

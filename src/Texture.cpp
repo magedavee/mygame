@@ -3,6 +3,7 @@
 #include "Attributes.h"
 #include <iostream>
 #include "Game.h"
+#include "SDLINC.h"
 
 Texture::Texture()
 {
@@ -12,6 +13,7 @@ Texture::Texture()
 	mode=0;
 	bpp=0;
 	mPixels=NULL;
+	sdlText=NULL;
 	 
 
 }
@@ -23,10 +25,10 @@ Texture::~Texture()
 }
 
 
-void Texture::bind()
-{
-	Game::getInstance()->getGraphics()->bindTexture(this);
-}
+//void Texture::bind()
+//{
+	//Game::getInstance()->getGraphics()->bindTexture(this);
+//}
 
 uint32_t Texture::getID()
 {
@@ -121,4 +123,19 @@ void Texture::changePixel(int x,int y,uint8_t r,uint8_t g,uint8_t b,uint8_t a)
 	*pixel=(A<<24)+(B<<16)+(G<<8)+R;
 		
 	mPixels[index]=*pixel;
+}
+
+void Texture::setSDL(SDL_Texture* sdlText)
+{
+    this->sdlText=sdlText;
+    int w, h;
+    Uint32* format;
+    SDL_QueryTexture(sdlText, format, NULL, &w, &h);
+    setWidth(w);
+    setHeight(h);
+}
+
+SDL_Texture* Texture::getSDL()
+{
+    return sdlText;
 }

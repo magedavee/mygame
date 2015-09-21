@@ -14,7 +14,7 @@ class Texture
 
 
 
-        void bind();
+        //void bind();
 
         uint32_t getID();
         void  setID(int id);
@@ -35,7 +35,8 @@ class Texture
 	void setPixels(GLuint*  mPixels);
 	uint32_t getSize();
 	void changePixel(int x,int y,uint8_t r,uint8_t  g,uint8_t b,uint8_t a );
-		
+	void setSDL(SDL_Texture* sdlText);
+	SDL_Texture* getSDL();
     private:
         //Texture name
         uint32_t textureID;
@@ -49,6 +50,7 @@ class Texture
 	int mode;
 	int bpp;
 	void setSize();
+	SDL_Texture* sdlText;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "Graphics.h"
 //#define DEBUG false||DEBUG_ALL
 
-bool GraphicsGL::DEBUG = false;
+//bool Graphics::DEBUG = false;
 
 GraphicsGL::GraphicsGL()
 {
