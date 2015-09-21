@@ -14,7 +14,6 @@ static Game *  instance=NULL;
 bool Game::DEBUG_ALL=false;
 bool Game::DEBUG=false||Game::DEBUG_ALL;
 bool Game::DEBUG_FPS=false||Game::DEBUG_ALL;
-bool Game::DEBUG_GRAPHICS=false;
 Game::Game()
 {
 	argc=0;

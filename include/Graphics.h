@@ -37,7 +37,7 @@ protected:
 	vector<Rects> rectList;
 	SDL_Renderer* gRenderer;
 public:
-	static bool DEBUG;
+	const static bool DEBUG_GRAPHICS=false;
 	Graphics(){};
 	virtual ~Graphics(){};
 	virtual bool init()=0;
@@ -61,6 +61,7 @@ protected:
 	vector<Rects> rectList;
 	SDL_Renderer* gRenderer;
 public:
+	bool static DEBUG;
 	GraphicsSDL();
 	virtual ~GraphicsSDL();
 	bool init();
@@ -91,6 +92,7 @@ protected:
 	void unbindTexture();
 	void bindTexture(Texture* texture);
 public:
+	bool static DEBUG;
 	GraphicsGL();
 	virtual ~GraphicsGL();
 	bool init();

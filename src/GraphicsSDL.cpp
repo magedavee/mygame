@@ -5,8 +5,8 @@
 #include <iostream>
 //#define DEBUG false||DEBUG_ALL
 
-//bool Graphics::DEBUG = false;
 
+bool GraphicsSDL::DEBUG = DEBUG=Graphics::DEBUG_GRAPHICS||Game::DEBUG_ALL;
 GraphicsSDL::GraphicsSDL()
 {
 /*	glutInit( &argc, args );
@@ -18,7 +18,6 @@ GraphicsSDL::GraphicsSDL()
         glutInitWindowSize( SCREENWIDTH, SCREENHEIGHT );
         glutCreateWindow( "OpenGL" );
 */
-    DEBUG=Game::DEBUG_GRAPHICS||Game::DEBUG_ALL;
     if(DEBUG)
 	    cout<<"DEBUG is on in GraphicsSDL\n";
     GLuint gVertexBuffer = 0;

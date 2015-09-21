@@ -33,7 +33,7 @@ public:
 	} graphMode;
 	char * assetDir;
 	static Game * getInstance();
-	static bool DEBUG_ALL,DEBUG_FPS,DEBUG,DEBUG_GRAPHICS;
+	static bool DEBUG_ALL,DEBUG_FPS,DEBUG;
 	virtual ~Game();
 	void setCMDLine(int arcg,char *args[]);
 	void mainGameLoop();

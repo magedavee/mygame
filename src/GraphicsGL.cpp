@@ -5,7 +5,7 @@
 #include "Graphics.h"
 //#define DEBUG false||DEBUG_ALL
 
-//bool Graphics::DEBUG = false;
+bool GraphicsGL::DEBUG = DEBUG=Graphics::DEBUG_GRAPHICS||Game::DEBUG_ALL;
 
 GraphicsGL::GraphicsGL()
 {
@@ -19,7 +19,6 @@ GraphicsGL::GraphicsGL()
         glutCreateWindow( "OpenGL" );
 */
     cout<<"this OGL\n";
-    DEBUG=Game::DEBUG_GRAPHICS||Game::DEBUG_ALL;
     if(DEBUG)
 	    cout<<"DEBUG is on in GraphicsGL\n";
     //GLuint gVertexBuffer = 0;
