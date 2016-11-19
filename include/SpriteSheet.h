@@ -11,10 +11,22 @@ class SpriteSheet
     protected:
 	Texture* map;
 	Rects render_rect;
-	vector<Rects> mesh;
+	vector<Rects*> *mesh;
+	int frame;
     public:
-	SpriteSheet(std::string * name);
+	SpriteSheet(std::string  name);
+	void addRect(Rects *rect);
+	void setFrame(int frame);
+	Texture* getTexture()
+	{
+	    return map;
+	};
+	Rects* getFrameRect()
+	{
+	    return mesh->at(frame);
+	}
 	~SpriteSheet();
+	
 };
 
 

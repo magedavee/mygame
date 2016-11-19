@@ -1,23 +1,25 @@
 #include <string>
 #include <vector>
+#include <utility>
 #include <stdint.h>
 #include "OGL.h"
+#include "SpriteSheet.h"
 using namespace std;
 #ifndef GEOSTRUCT
 #define GEOSTRUCT
 
-struct Vertex
+ typedef struct 
 {
 	GLfloat x,y;
-};
-struct Quad
+}Vertex;
+typedef struct 
 {
 	Vertex v[4];
-};
-struct Rects
+}Quad;
+typedef struct 
 {
-    GLfloat x,y,h,w;
-};
+    int x,y,h,w;
+}Rects;
 #endif
 #ifndef GRAPHICS_H_
 #define GRAPHICS_H_
@@ -28,6 +30,7 @@ struct Rects
 
 class Game;
 class Texture;
+class SpriteSheet;
 class Graphics
 {
 protected:
@@ -36,18 +39,20 @@ protected:
 	Uint32 getPixel(SDL_Surface *surface,int x,int y);
 	vector<Rects> rectList;
 	SDL_Renderer* gRenderer;
+	vector<pair<Texture*,Rects*>> *renderList;
 public:
 	const static bool DEBUG_GRAPHICS=false;
 	Graphics(){};
 	virtual ~Graphics(){};
 	virtual bool init()=0;
-	virtual void render(Texture* text)=0;
+	virtual void render(Texture*,Rects*,Rects*)=0;
 	virtual bool isBigEndian()=0;
 //texture functions;
 	virtual Texture* loadTexture(std::string filename)=0;
 	virtual void freeTexture(Texture* texture)=0;
 	virtual bool updateTexture(Texture *)=0;
 	virtual void addTexture(Texture *,Rects *)=0;
+	virtual void addSprite(SpriteSheet* sprite)=0;
 
 
 };
@@ -65,13 +70,14 @@ public:
 	GraphicsSDL();
 	virtual ~GraphicsSDL();
 	bool init();
-	void render(Texture* text);
+	void render(Texture* text,Rects*,Rects*);
 	bool isBigEndian(){return SDL_BYTEORDER == SDL_BIG_ENDIAN;};
 //texture functions;
 	Texture* loadTexture(std::string filename);
 	void freeTexture(Texture* texture);
 	bool updateTexture(Texture *);
 	void addTexture(Texture *,Rects *);
+	void addSprite(SpriteSheet* sprite);
 
 
 };
@@ -96,13 +102,14 @@ public:
 	GraphicsGL();
 	virtual ~GraphicsGL();
 	bool init();
-	void render(Texture* text);
+	void render(Texture* text,Rects*,Rects*);
 //texture functions;
 	bool isBigEndian(){return SDL_BYTEORDER == SDL_BIG_ENDIAN;};
 	Texture* loadTexture(std::string filename);
 	void freeTexture(Texture* texture);
 	bool updateTexture(Texture *);
 	void addTexture(Texture *,Rects *);
+	void addSprite(SpriteSheet* sprite);
 
 
 };

@@ -12,6 +12,8 @@ message (STATUS 'Headers:' ${headers})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${mygame_SOURCE_DIR}/cmake")
 set(LIBRARY_OUTPUT_PATH "${CMAKE_BINARY_DIR}/lib")
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_BINARY_DIR}/bin")
+set(NAME "my_game")
+set(EXECUTABLE "${CMAKE_BINARY_DIR}/bin/${NAME}")
 
 #For Mac OS X Use @rpath on OS X
 if(APPLE)
@@ -20,6 +22,8 @@ if(APPLE)
 	endif()
 endif()
 
+file(WRITE .run_dir ${EXECUTABLE})
+execute_process(COMMAND mv .run_dir "${CMAKE_BINARY_DIR}/." WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} OUTPUT_VARIABLE OUT)
 
 
 
@@ -68,12 +72,12 @@ link_directories(${LIBRARY_OUTPUT_PATH})
 target_link_libraries(GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${SDL2_LIBRARY}
     ${SDL2_TTF_LIBRARY} ${SDL2_IMAGE_LIBRARY} X11)
 
-add_executable(my_game ${PROJECT_SOURCE_DIR}/main.cpp)
+add_executable(${NAME} ${PROJECT_SOURCE_DIR}/main.cpp)
 
 
-target_link_libraries(my_game GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} X11)
+target_link_libraries(${NAME} GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} X11)
 
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-set(CMAKE_BUILD_TYPE debug)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3 -Wextra -Wpedantic")
+set(CMAKE_BUILD_TYPE debug)

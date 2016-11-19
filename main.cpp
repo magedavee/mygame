@@ -1,5 +1,7 @@
 #include "Game.h"
+#include <iostream>
 #include <X11/Xlib.h>
+using namespace std;
 int main(int argc,char* args[])
 {
 	XInitThreads();	

@@ -4,9 +4,14 @@
 #include "SDLINC.h"
 #include "Texture.h"
 #include "SpriteSheet.h"
+#include "Object.h"
+#include "SpritedObject.h"
+#include <vector>
 class Graphics;
 class Texture;
 class SpriteSheet;
+class Object;
+class SpritedObject;
 
 
 class Game
@@ -19,6 +24,7 @@ private:
 	Graphics *graphics;
 	Texture* text;
 	SpriteSheet * sprite;
+	vector<Object *>  obj;
 	int argc;
 	char *args[];
 	void processCMDLine();

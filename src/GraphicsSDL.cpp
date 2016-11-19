@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "Attributes.h"
 #include "Graphics.h"
+#include "SpriteSheet.h"
 #include <iostream>
 //#define DEBUG false||DEBUG_ALL
 
@@ -88,13 +89,15 @@ bool GraphicsSDL::init()
 }
 
 
-void GraphicsSDL::render(Texture* text)
+void GraphicsSDL::render(Texture* text,Rects* src,Rects* dst )
 {
+    SDL_Rect  sR={src->x,src->y,src->w,src->h};
+    SDL_Rect  dR={dst->x,dst->y,dst->w,dst->h};
     //Clear screen
     SDL_RenderClear( gRenderer );
 
     //Render texture to screen
-    SDL_RenderCopy( gRenderer,text->getSDL() , NULL, NULL );
+    SDL_RenderCopy( gRenderer,text->getSDL() , &sR,&dR );
 
     //Update screen
     SDL_RenderPresent( gRenderer );
@@ -192,4 +195,10 @@ bool GraphicsSDL::updateTexture(Texture* texture)
 void GraphicsSDL::addTexture(Texture *texture,Rects *clip)
 {
 
+}
+
+void GraphicsSDL::addSprite(SpriteSheet* sprite)
+{
+    pair<Texture*,Rects*> renderPair(sprite->getTexture(),sprite->getFrameRect());
+    this->renderList->push_back(renderPair);
 }

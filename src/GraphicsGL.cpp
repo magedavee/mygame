@@ -124,7 +124,7 @@ bool GraphicsGL::initGL()
     return true;
 }
 
-void GraphicsGL::render(Texture* text)
+void GraphicsGL::render(Texture* text,Rects* src,Rects* dst)
 {
     bindTexture(text);
     Vertex gQuadVertices[ 4 ];
@@ -353,6 +353,11 @@ bool GraphicsGL::updateTexture(Texture* texture)
 }
 
 void GraphicsGL::addTexture(Texture *texture,Rects *clip)
+{
+
+}
+
+void GraphicsGL::addSprite(SpriteSheet* sprite)
 {
 
 }

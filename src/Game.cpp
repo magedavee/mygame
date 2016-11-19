@@ -18,7 +18,7 @@ Game::Game()
 {
 	argc=0;
 	
-	this->graphMode=OGL;	
+	this->graphMode=SDL;	
 	if(DEBUG)
 		std::cout<<"Creating game \n";
 }
@@ -84,12 +84,10 @@ int Game::initGame()
 		this->graphics=new GraphicsGL();
 		break;
 	}
-	text=graphics->loadTexture("/home/mage/Pictures/GameSprites/res/magusSheet.png");
-	if(text==NULL)
-	{
-		std::cout<<"loadTexture fail "<<endl;
-		return 1;
-	}
+	SpritedObject* sO=new SpritedObject("/home/mage/Pictures/GameSprites/res/magusSheet.png");
+	obj= vector<Object*>();
+	obj.push_back(sO);
+
 	return 0;
 }
 void Game::mainGameLoop()
@@ -131,13 +129,21 @@ void Game::mainGameLoop()
 
 void Game::update()
 {
+    //cerr<<"db. Game update 000\n";
+    for(auto o: obj)
+    {
+	o->update();
+    }
 }
 
 
 void Game::render()
 { 
-	
-	this->graphics->render(text);
+    for(auto o: obj)
+    {
+	o->render();
+    }
+	//obj->render();
 }
 
 Graphics* Game::getGraphics()
