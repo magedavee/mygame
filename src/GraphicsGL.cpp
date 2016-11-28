@@ -3,9 +3,6 @@
 #include "Attributes.h"
 #include <iostream>
 #include "Graphics.h"
-//#define DEBUG false||DEBUG_ALL
-
-bool GraphicsGL::DEBUG = DEBUG=Graphics::DEBUG_GRAPHICS||Game::DEBUG_ALL;
 
 GraphicsGL::GraphicsGL()
 {
@@ -18,17 +15,15 @@ GraphicsGL::GraphicsGL()
         glutInitWindowSize( SCREENWIDTH, SCREENHEIGHT );
         glutCreateWindow( "OpenGL" );
 */
-    if(DEBUG)
-	    cout<<"DEBUG is on in GraphicsGL\n";
+    //cerr<<"db "<<"DEBUG is on in GraphicsGL\n";
     GLuint gVertexBuffer = 0;
     if(!this->init())
     {
-	    std::cout<<"failed init of graphics.\n";
+	    //cerr<<"db "<<"failed init of graphics.\n";
     }
     else
     {
-	    if(DEBUG)
-	    std::cout<<"graphics ok\n";
+	//cerr<<"db "<<"graphics ok\n";
     }
     void EnableTransparency();
 }
@@ -40,11 +35,10 @@ GraphicsGL::~GraphicsGL()
 
 bool GraphicsGL::init()
 {
-	if(DEBUG)
-		std::cout<<"initlizing GraphicsGL\n";
+    //cerr<<"db "<<"initlizing GraphicsGL\n";
      	if( SDL_Init(SDL_INIT_VIDEO)<0)
         {
-                std::cout<<"sdl init fail\n";
+                //cerr<<"db "<<"sdl init fail\n";
                 return false;
         }
      
@@ -58,7 +52,7 @@ bool GraphicsGL::init()
 
         if(this->window==NULL)
         {
-                std::cout<<"window null SDL Error: "<<SDL_GetError()<<endl;
+                //cerr<<"db "<<"window null SDL Error: "<<SDL_GetError()<<endl;
                 return false;
         }
   //Initialize PNG loading
@@ -66,37 +60,32 @@ bool GraphicsGL::init()
 	int imgFlags = IMG_INIT_PNG;
 	if( !( IMG_Init( imgFlags ) & imgFlags ) ) 
 	{ 
-		std::cout<< "SDL_image could not initialize! SDL_image Error: "<< IMG_GetError() <<endl; 
+		//cerr<<"db "<< "SDL_image could not initialize! SDL_image Error: "<< IMG_GetError() <<endl; 
 		return false; 
 	}
 	else
 	{
-		if(DEBUG)
-		{
-			std::cout<<"Image Flags: "<<imgFlags<<endl; 
-		}
+		//cerr<<"db "<<"Image Flags: "<<imgFlags<<endl; 
 	}	
 	context= SDL_GL_CreateContext(window);
 	if(context==NULL)
 	{
-		cout<<"OpenGL context could not be created SDL Error:"<<SDL_GetError()<<endl;
+		//cerr<<"db "<<"OpenGL context could not be created SDL Error:"<<SDL_GetError()<<endl;
 		return false;
 	}
 	if( SDL_GL_SetSwapInterval( 1 ) < 0 )
 	{
-		cout<<"Warning Unable to set VSync:"<<SDL_GetError()<<endl;
+		//cerr<<"db "<<"Warning Unable to set VSync:"<<SDL_GetError()<<endl;
 	}
 	//Initialize OpenGL 
-	if(DEBUG)
-		std::cout<<"initlizing OpenGL\n";
+	//cerr<<"db "<<"initlizing OpenGL\n";
 	if( initGL() == false ) 
 	{
-		std::cout<<"error with opengl\n";
+		//cerr<<"db "<<"error with opengl\n";
 		return false; 
 	}
 	
-	if(DEBUG)
-		std::cout<<"Finish with initilizing graphics\n";
+	//cerr<<"db "<<"Finish with initilizing graphics\n";
   
         return true;
 }
@@ -118,7 +107,7 @@ bool GraphicsGL::initGL()
     GLenum error=glGetError();
     if(error!=GL_NO_ERROR)
     {
-	    std::cout<<"error with open gl init\n";
+	    //cerr<<"db "<<"error with open gl init\n";
 	    return false;
     }
     return true;
@@ -146,8 +135,7 @@ void GraphicsGL::render(Texture* text,Rects* src,Rects* dst)
     glDrawArrays( GL_QUADS, 0, 4 ); 
     //Disable vertex arrays 
     glDisableClientState( GL_VERTEX_ARRAY );
-    if(DEBUG)
-	std::cout<<"Render\n"; 
+    //cerr<<"db "<<"Render\n"; 
 	//Clear color buffer
     glClear( GL_COLOR_BUFFER_BIT );
 //    glMatrixMode( GL_TEXTURE );
@@ -174,14 +162,13 @@ void GraphicsGL::render(Texture* text,Rects* src,Rects* dst)
 
 Texture* GraphicsGL::loadTexture(std::string filename)
 {
-	if(DEBUG)
-		std::cout<<"loading texture "<<filename.c_str()<<endl;
+	//cerr<<"db "<<"loading texture "<<filename.c_str()<<endl;
 	Texture * texture=new Texture();
         SDL_Surface* surface = IMG_Load(filename.c_str());
 
         if (!surface) {
 
-		std::cout<<"surface not loaded "<<filename<<" SDL image Error:"<<IMG_GetError()<<endl;
+		//cerr<<"db "<<"surface not loaded "<<filename<<" SDL image Error:"<<IMG_GetError()<<endl;
                 return NULL;
 
         }
@@ -199,7 +186,7 @@ Texture* GraphicsGL::loadTexture(std::string filename)
         } else {
 
                 SDL_FreeSurface(surface);
-		std::cout<<"format error "<<filename<<endl;
+		//cerr<<"db "<<"format error "<<filename<<endl;
                 return NULL;
 
         }
@@ -228,31 +215,26 @@ Texture* GraphicsGL::loadTexture(std::string filename)
 	SDL_FreeSurface(surface);
 	if(texture==NULL)
 	{
-		std::cout<<"texture failed to load";
+		//cerr<<"db "<<"texture failed to load";
 	}
 	bindTexture(texture);
-	if(DEBUG)
-		std::cout<<"pixels address: "<<mPixels<<endl;
-	if(DEBUG)
-		std::cout<<"glTexImage"<<endl;
+	//cerr<<"db "<<"pixels address: "<<mPixels<<endl;
+	//cerr<<"db "<<"glTexImage"<<endl;
 	int w=texture->getWidth();
 	int h=texture->getHeight();
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, mPixels);
         // these affect how this texture is drawn later on...
-	if(DEBUG)
-		std::cout<<"Texture Parameters"<<endl;
+	//cerr<<"db "<<"Texture Parameters"<<endl;
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-	if(DEBUG)
-		std::cout<<"Binding over"<<endl;
+	//cerr<<"db "<<"Binding over"<<endl;
 	//Check for error 
 	GLenum error = glGetError(); 
 	if( error != GL_NO_ERROR ) 
 	{ 
-		cout<< "Error loading texture" <<gluErrorString( error )<<endl;
+		//cerr<<"db "<< "Error loading texture" <<gluErrorString( error )<<endl;
 	} 
-	if(DEBUG)
-		std::cout<<"texture:  "<<texture<<endl;
+	//cerr<<"db "<<"texture:  "<<texture<<endl;
 	unbindTexture();
 	texture->setPixels(mPixels);
 	//delete mPixels;
@@ -269,8 +251,7 @@ void GraphicsGL::unbindTexture()
 void GraphicsGL::bindTexture(Texture * texture)
 {
 	GLuint textureID=texture->getID();
-	if(DEBUG)
-		std::cout<<"now binding"<<endl;
+	//cerr<<"db "<<"now binding"<<endl;
         glBindTexture(GL_TEXTURE_2D, textureID);
 
 }
@@ -297,7 +278,7 @@ Uint32 GraphicsGL::getPixel(SDL_Surface *surface, int x,int y)
 	}
 	else
 	{
-		std::cout<<"x= "<<x<<" y ="<<y<<" is out of bounds\n";
+		//cerr<<"db "<<"x= "<<x<<" y ="<<y<<" is out of bounds\n";
 		return 0;
 	}
 	Uint8 *p=(Uint8*)surface->pixels+y*surface->pitch+x*bpp;
@@ -323,7 +304,7 @@ Uint32 GraphicsGL::getPixel(SDL_Surface *surface, int x,int y)
 		break;
 
 	    default:
-		std::cout<<"Error in reading pixel at x="<<x<<" y="<<y<<endl;
+		//cerr<<"db "<<"Error in reading pixel at x="<<x<<" y="<<y<<endl;
 		return 0;       /* shouldn't happen, but avoids warnings */
 	}
 }
@@ -332,8 +313,7 @@ Uint32 GraphicsGL::getPixel(SDL_Surface *surface, int x,int y)
 
 bool GraphicsGL::updateTexture(Texture* texture)
 {
-	if(DEBUG)
-		cout<<"unlock"<<endl;
+	//cerr<<"db "<<"unlock"<<endl;
 	GLuint *mPixels= texture->getPixels();
 	int mTextureWidth=texture->getWidth();
 	int mTextureHeight=texture->getHeight();

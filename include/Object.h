@@ -3,11 +3,12 @@
 
 #include "SpriteSheet.h"
 #include "Game.h"
+#include "Plugin.h"
 #include <string>
 class SpriteSheet;
 class Game;
-
-class Object
+using namespace PluginSystem;
+class Object:public VPlugin
 {
     protected:
 	Game * game;
@@ -15,7 +16,7 @@ class Object
     public:
 	Object(){};
 	virtual void update(){};
-	virtual void render(){};
+	//virtual void render(){};
 };
 
 #endif

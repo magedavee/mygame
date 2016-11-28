@@ -4,10 +4,8 @@
 #include "Graphics.h"
 #include "SpriteSheet.h"
 #include <iostream>
-//#define DEBUG false||DEBUG_ALL
 
 
-bool GraphicsSDL::DEBUG = DEBUG=Graphics::DEBUG_GRAPHICS||Game::DEBUG_ALL;
 GraphicsSDL::GraphicsSDL()
 {
 /*	glutInit( &argc, args );
@@ -19,17 +17,14 @@ GraphicsSDL::GraphicsSDL()
         glutInitWindowSize( SCREENWIDTH, SCREENHEIGHT );
         glutCreateWindow( "OpenGL" );
 */
-    if(DEBUG)
-	    cout<<"DEBUG is on in GraphicsSDL\n";
     GLuint gVertexBuffer = 0;
     if(!this->init())
     {
-	    std::cout<<"failed init of graphics.\n";
+	    //cerr<<"db "<<"failed init of graphics.\n";
     }
     else
     {
-	    if(DEBUG)
-	    std::cout<<"graphics ok\n";
+	//cerr<<"db "<<"graphics ok\n";
     }
 }
 
@@ -40,18 +35,17 @@ GraphicsSDL::~GraphicsSDL()
 
 bool GraphicsSDL::init()
 {
-	if(DEBUG)
-		std::cout<<"initlizing GraphicsSDL\n";
+    //cerr<<"db "<<"initlizing GraphicsSDL\n";
      	if( SDL_Init(SDL_INIT_VIDEO)<0)
         {
-                std::cout<<"sdl init fail\n";
+                //cerr<<"db "<<"sdl init fail\n";
                 return false;
         }
     
 	//Set texture filtering to linear
 	if( !SDL_SetHint( SDL_HINT_RENDER_SCALE_QUALITY, "1" ) )
 	{
-	    cout<<"Warning: Linear texture filtering not enabled!"<<endl;
+	    //cerr<<"db "<<"Warning: Linear texture filtering not enabled!"<<endl;
 	}
 
 
@@ -60,14 +54,14 @@ bool GraphicsSDL::init()
 
 	if(this->window==NULL)
 	{
-		std::cout<<"window null SDL Error: "<<SDL_GetError()<<endl;
+		//cerr<<"db "<<"window null SDL Error: "<<SDL_GetError()<<endl;
 		return false;
 	}
       //Initialize PNG loading
 	gRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED );
 	if( gRenderer == NULL ) 
 	{ 
-	    cout<< "Renderer could not be created! SDL Error "<<SDL_GetError()<<endl; 
+	    //cerr<<"db "<< "Renderer could not be created! SDL Error "<<SDL_GetError()<<endl; 
 	    return false; 
 	}
 
@@ -75,16 +69,12 @@ bool GraphicsSDL::init()
 	int imgFlags = IMG_INIT_PNG;
 	if( !( IMG_Init( imgFlags ) & imgFlags ) ) 
 	{ 
-		std::cout<< "SDL_image could not initialize! SDL_image Error: "<< IMG_GetError() <<endl; 
+		//cerr<<"db "<< "SDL_image could not initialize! SDL_image Error: "<< IMG_GetError() <<endl; 
 		return false; 
 	}
-	if(DEBUG)
-	{
-	    std::cout<<"Image Flags: "<<imgFlags<<endl; 
-	}
+	//cerr<<"db "<<"Image Flags: "<<imgFlags<<endl; 
 	
-	if(DEBUG)
-		std::cout<<"Finish with initilizing graphics\n";
+	//cerr<<"db "<<"Finish with initilizing graphics\n";
         return true;
 }
 
@@ -115,7 +105,7 @@ Texture* GraphicsSDL::loadTexture(std::string filename)
     SDL_Surface* loadedSurface = IMG_Load( filename.c_str() ); 
     if( loadedSurface == NULL ) 
     { 
-	cout<<"Unable to load image "<<filename<<"! SDL_image Error:"<< IMG_GetError()<<endl;
+	//cerr<<"db "<<"Unable to load image "<<filename<<"! SDL_image Error:"<< IMG_GetError()<<endl;
     } 
     else 
     { 
@@ -123,7 +113,7 @@ Texture* GraphicsSDL::loadTexture(std::string filename)
 	newTexture = SDL_CreateTextureFromSurface( gRenderer, loadedSurface ); 
 	if( newTexture == NULL ) 
 	{ 
-	    cout<<"Unable to create texture from"<<filename<< "SDL Error: "<<SDL_GetError()<<endl; 
+	    //cerr<<"db "<<"Unable to create texture from"<<filename<< "SDL Error: "<<SDL_GetError()<<endl; 
 	} //Get rid of old loaded surface 
 	SDL_FreeSurface( loadedSurface ); 
     }
@@ -153,7 +143,7 @@ Uint32 GraphicsSDL::getPixel(SDL_Surface *surface, int x,int y)
 	}
 	else
 	{
-		std::cout<<"x= "<<x<<" y ="<<y<<" is out of bounds\n";
+		//cerr<<"db "<<"x= "<<x<<" y ="<<y<<" is out of bounds\n";
 		return 0;
 	}
 	Uint8 *p=(Uint8*)surface->pixels+y*surface->pitch+x*bpp;
@@ -179,7 +169,7 @@ Uint32 GraphicsSDL::getPixel(SDL_Surface *surface, int x,int y)
 		break;
 
 	    default:
-		std::cout<<"Error in reading pixel at x="<<x<<" y="<<y<<endl;
+		//cerr<<"db "<<"Error in reading pixel at x="<<x<<" y="<<y<<endl;
 		return 0;       /* shouldn't happen, but avoids warnings */
 	}
 }

@@ -2,34 +2,38 @@
 #define GAME_H_
 #include "Graphics.h"
 #include "SDLINC.h"
-#include "Texture.h"
-#include "SpriteSheet.h"
-#include "Object.h"
-#include "SpritedObject.h"
+#include "Monitor.h"
 #include <vector>
+#include <string>
+#include <map>
+#include <libconfig.h++>
 class Graphics;
 class Texture;
 class SpriteSheet;
 class Object;
 class SpritedObject;
+class Monitor;
 
-
+using namespace libconfig;
+typedef struct
+{
+    string g_mode;
+}
+GameSettings;
 class Game
 {
 protected:
 	Game();
 private:
-	int initGame();
+	bool initGame();
 	SDL_Event event;
 	Graphics *graphics;
-	Texture* text;
-	SpriteSheet * sprite;
-	vector<Object *>  obj;
+	Monitor * monitor ;
 	int argc;
 	char *args[];
 	void processCMDLine();
-//	Game(int argc, char* args[]);
-//	static Game *  instance;
+	GameSettings game_settings;
+	map<string,int> modes;
 
 public:
 	enum GraphicsMode
@@ -39,7 +43,6 @@ public:
 	} graphMode;
 	char * assetDir;
 	static Game * getInstance();
-	static bool DEBUG_ALL,DEBUG_FPS,DEBUG;
 	virtual ~Game();
 	void setCMDLine(int arcg,char *args[]);
 	void mainGameLoop();

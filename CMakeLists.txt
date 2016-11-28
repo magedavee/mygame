@@ -24,6 +24,7 @@ endif()
 
 file(WRITE .run_dir ${EXECUTABLE})
 execute_process(COMMAND mv .run_dir "${CMAKE_BINARY_DIR}/." WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} OUTPUT_VARIABLE OUT)
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/settings")
 
 
 
@@ -65,12 +66,21 @@ add_definitions(${OpenGL_DEFINITIONS})
 if(NOT OPENGL_FOUND)
     message(ERROR " OPENGL not found!")
 endif(NOT OPENGL_FOUND)
+#########################################################
+# FIND LIBCONFIG 
+#########################################################
+find_package(Config++ REQUIRED)
+include_directories(${CONFIG++_INCLUDE_DIR})
+link_directories(${CONFIG++_LIBRARY})
+if(NOT CONFIG++_FOUND)
+    message(ERROR " libconfig not found!")
+endif(NOT CONFIG++_FOUND)
 
 
 add_library(GameLib SHARED ${sources} ${headers})
 link_directories(${LIBRARY_OUTPUT_PATH})
 target_link_libraries(GameLib ${OPENGL_LIBRARIES} ${GLUT_LIBRARY} ${SDL2_LIBRARY}
-    ${SDL2_TTF_LIBRARY} ${SDL2_IMAGE_LIBRARY} X11)
+    ${SDL2_TTF_LIBRARY} ${SDL2_IMAGE_LIBRARY} ${CONFIG++_LIBRARY} X11)
 
 add_executable(${NAME} ${PROJECT_SOURCE_DIR}/main.cpp)
 

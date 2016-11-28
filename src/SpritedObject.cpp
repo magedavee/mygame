@@ -41,23 +41,23 @@ SpritedObject::SpritedObject(string name):SpritedObject()
 
 void SpritedObject::update()
 {
-    //cerr<<"db. SpriteObject update 000 frame "<<frame<<endl;
-    //cerr<<"db. SpriteObject update 000 src.size "<<src.size()<<endl;
+    ////cerr<<"db. SpriteObject update 000 frame "<<frame<<endl;
+    ////cerr<<"db. SpriteObject update 000 src.size "<<src.size()<<endl;
     if(delay >0)
     {
 	--delay;
-	//cerr<<"db.\n delay"<<delay<<endl;
+	////cerr<<"db.\n delay"<<delay<<endl;
     }
     else
     {
 	if(frame%src.size()!=0)
 	{
-	    //cerr<<"db. SpriteObject update 001 frame "<<frame<<endl;
+	    ////cerr<<"db. SpriteObject update 001 frame "<<frame<<endl;
 	    ++frame;
 	}
 	else
 	{
-	    //cerr<<"db. SpriteObject update 002 frame "<<frame<<endl;
+	    ////cerr<<"db. SpriteObject update 002 frame "<<frame<<endl;
 	    frame=1;
 	}
 	delay=delay_start;
@@ -66,7 +66,7 @@ void SpritedObject::update()
 
 void SpritedObject::render()
 {
-    //cerr<<"db SpriteObject render 100 frame "<<frame<<endl;
+    ////cerr<<"db SpriteObject render 100 frame "<<frame<<endl;
     Rects* sR=src[frame-1];
     Rects* dR=dst[0];
     game->getGraphics()->render(sprite[0]->getTexture(),sR,dR);

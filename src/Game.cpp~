@@ -11,9 +11,10 @@
 static Game *  instance=NULL;
 Game::Game()
 {
+	Config cfg;
+	cfg.readFile("./settings/setting.cfg");
+	settings = cfg.getRoot();
 	//cerr<<"db Creating game \n";
-    modes["OGL"]=OGL;
-    modes["SDL"]=SDL;
 }
 
 void Game::setCMDLine(int argc, char* args[])
@@ -65,44 +66,26 @@ Game::~Game()
 
 bool Game:: initGame()
 {
-    //cerr<<"db "<<" init "<<std::endl;
-    Config cfg;
-    // Read the file. If there is an error, report it and exit.
-    string file="./settings/setting.cfg";
-    try
-    {
-	cfg.readFile(file.c_str());
-    }
-    catch(const FileIOException &fioex)
-    {
-	std::cerr << "I/O error while reading file "<<file<< std::endl;
-	return(false);
-    }
-    catch(const ParseException &pex)
-    {
-	std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
-		  << " - " << pex.getError() << std::endl;
-	return(false);
-    }
-    
-    Setting& settings=cfg.getRoot();
-    string g_mode;
-    settings["game"].lookupValue("graphics",g_mode);
-    game_settings.g_mode=g_mode;
-    graphMode=OGL;
-    switch(modes[g_mode])
-    {
-    case SDL:
-	//cerr<<"db SDL graphics mode\n";
-	this->graphics=new GraphicsSDL();
-	break;
-    case OGL:
-	//cerr<<"db OpenGL graphics mode\n";
-	this->graphics=new GraphicsGL();
-	break;
-    }
-    monitor =new Monitor();
-    return true;
+	//cerr<<"db "<<" init "<<std::endl;
+	this->graphMode=SDL;
+	if(!checkConfig("./settings/setting.cfg"))
+	{
+	    return false;
+	}
+	//settings = cfg.getRoot();
+	switch(graphMode)
+	{
+	    case SDL:
+		//cerr<<"db SDL graphics mode\n";
+		this->graphics=new GraphicsSDL();
+		break;
+	    case OGL:
+		//cerr<<"db OpenGL graphics mode\n";
+		this->graphics=new GraphicsGL();
+		break;
+	}
+	monitor =new Monitor();
+	return true;
 }
 void Game::mainGameLoop()
 {
@@ -150,4 +133,26 @@ void Game::render()
 Graphics* Game::getGraphics()
 {
 	return this->graphics;
+}
+bool Game::checkConfig(string file)
+{
+  Config cfg;
+  // Read the file. If there is an error, report it and exit.
+  try
+  {
+    cfg.readFile(file.c_str());
+  }
+  catch(const FileIOException &fioex)
+  {
+    std::cerr << "I/O error while reading file "<<file<< std::endl;
+    return(false);
+  }
+  catch(const ParseException &pex)
+  {
+    std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
+              << " - " << pex.getError() << std::endl;
+    return(false);
+  }
+  Setting& setting = cfg.getRoot();
+  return true;
 }

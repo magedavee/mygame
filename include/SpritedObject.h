@@ -1,6 +1,6 @@
 #ifndef SPROBJ_H
 #define SPROBJ_H
-
+#include "Sprited.h"
 #include "SpriteSheet.h"
 #include "Object.h"
 #include "Graphics.h"
@@ -8,14 +8,8 @@
 #include <string>
 class SpriteSheet;
 class Game;
-class SpritedObject:public Object
+class SpritedObject: public Object,public Sprited 
 {
-    protected:
-	vector <SpriteSheet *> sprite;
-	vector <Rects *> src;
-	vector <Rects *> dst;
-	Game * game;
-	int frame,delay,delay_start;
 
     public:
 	SpritedObject();
