@@ -7,7 +7,8 @@
 #include <string>
 #include <map>
 #include <memory>
-class SpritedObject;
+class Object;
+class Game;
 class VRoom
 {
     public:
