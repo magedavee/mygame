@@ -1,18 +1,19 @@
 #ifndef GAME_H_
 #define GAME_H_
-#include "Graphics.h"
 #include "SDLINC.h"
-#include "Monitor.h"
+#include "Graphics.h"
+#include "Room.h"
 #include <vector>
 #include <string>
 #include <map>
+#include <memory>
 #include <libconfig.h++>
 class Graphics;
 class Texture;
 class SpriteSheet;
 class Object;
 class SpritedObject;
-class Monitor;
+class VRoom;
 
 using namespace libconfig;
 typedef struct
@@ -28,7 +29,7 @@ private:
 	bool initGame();
 	SDL_Event event;
 	Graphics *graphics;
-	Monitor * monitor ;
+	unique_ptr<VRoom>  room ;
 	int argc;
 	char *args[];
 	void processCMDLine();

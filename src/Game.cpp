@@ -101,7 +101,9 @@ bool Game:: initGame()
 	this->graphics=new GraphicsGL();
 	break;
     }
-    monitor =new Monitor();
+    auto &factory = RoomFactory::getInstance();
+    //room =new Room();
+    room=factory.getRoom("Room");
     return true;
 }
 void Game::mainGameLoop()
@@ -138,13 +140,13 @@ void Game::mainGameLoop()
 
 void Game::update()
 {
-    monitor->update();
+    room->update();
 }
 
 
 void Game::render()
 { 
-    monitor->render();
+    room->render();
 }
 
 Graphics* Game::getGraphics()
