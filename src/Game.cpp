@@ -95,10 +95,12 @@ bool Game:: initGame()
     case SDL:
 	//cerr<<"db SDL graphics mode\n";
 	this->graphics=new GraphicsSDL();
+	//cerr<<"db  graphics "<<graphics<<endl;
 	break;
     case OGL:
 	//cerr<<"db OpenGL graphics mode\n";
 	this->graphics=new GraphicsGL();
+	//cerr<<"db  graphics "<<graphics<<endl;
 	break;
     }
     auto &factory = RoomFactory::getInstance();
@@ -151,5 +153,7 @@ void Game::render()
 
 Graphics* Game::getGraphics()
 {
+    //cerr<<"db. getGraphics\n";
+    //cerr<<"db. graphics "<<graphics<<endl;
 	return this->graphics;
 }

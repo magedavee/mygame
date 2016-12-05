@@ -1,8 +1,9 @@
 #include "SpriteSheet.h"
 #include "Game.h"
 #include <string>
+#include <iostream>
 
-SpriteSheet::SpriteSheet(string name)
+SpriteSheet::SpriteSheet(string name):frame(0)
 {
     Game* game=Game::getInstance();
     this->map=game->getGraphics()->loadTexture(name.c_str());
@@ -11,7 +12,6 @@ SpriteSheet::SpriteSheet(string name)
     this->render_rect.h=0;
     this->render_rect.w=0;
     this->mesh=new vector<Rects*>();
-    frame=0;
 }
 
 SpriteSheet::~SpriteSheet()
@@ -20,10 +20,29 @@ SpriteSheet::~SpriteSheet()
 
 void SpriteSheet::addRect(Rects *rect)
 {
+    if(!mesh)
+    {
+	mesh=new vector<Rects*>();
+	//cerr<<"db addRect new mesh "<< mesh<<endl;
+    }
+    //cerr<<"db addRect "<< mesh<<endl;
+    //cerr<<"db addRect "<< mesh->size()<<endl;
+
     this->mesh->push_back(rect);
+    //cerr<<"db addRect did it push? "<< mesh->size()<<endl;
 }
 
 void SpriteSheet::setFrame(int frame)
 {
-    this->frame=frame;
+    if (frame>=0 && frame < mesh->size())
+    {
+	this->frame=frame;
+    }
+    std::cout<<"error frame not in bounds\n";
+}
+Rects* SpriteSheet::getFrameRect()
+{
+    //cerr<<"db getFrameRect "<< mesh<<endl;
+    //cerr<<"db getFrameRect "<< mesh->size()<<endl;
+    return this->mesh->at(frame);
 }

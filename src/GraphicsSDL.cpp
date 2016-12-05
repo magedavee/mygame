@@ -81,6 +81,7 @@ bool GraphicsSDL::init()
 
 void GraphicsSDL::render(Texture* text,Rects* src,Rects* dst )
 {
+    //cerr<<"db GraphicsSDL\n";
     SDL_Rect  sR={src->x,src->y,src->w,src->h};
     SDL_Rect  dR={dst->x,dst->y,dst->w,dst->h};
     //Clear screen

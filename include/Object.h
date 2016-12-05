@@ -13,22 +13,43 @@ class Object
 {
     protected:
 	Game * game;
-	vector<SpriteSheet>* sprites;
-	vector<Rects> rects;
-	string plug;
+	vector<SpriteSheet*>* sprites;
+	string plug,id;
+	int x,y;
     public:
-	Object(string plug):plug(plug)
-	{
-
-	};
+	Object(string plug);
 	virtual void update();
 	virtual void render();
+	vector<SpriteSheet*>* getSprites();
+	string getPluginName(){return plug;};
+	string getID(){return id;};
+	int getX(){return x;};
+	int getY()
+	{
+	    //cerr<<"db getY"<< y<<endl;
+	    return y;
+	};
+	void setSprites(vector<SpriteSheet*>* sprites)
+	{
+	    //cerr<<"db setSprites befor "<< sprites<<endl;
+	    //cerr<<"db setSprites "<< sprites->size()<<endl;
+	    sprites=sprites;
+	    //cerr<<"db setSprites after "<< sprites<<endl;
+	    //cerr<<"db setSprites "<< sprites->size()<<endl;
+	};
+	void addSprite(string name);
+	void setPluginName(string plug){ plug=plug;};
+	void setID(string id){ id=id;};
+	void setX(int x){x= x;};
+	void setY(int y){y= y;};
+
 };
 class VObjectPlugin
 {
     public:
-	virtual void render(Object&)=0;
-	virtual void update(Object)=0;
+	virtual void init(Object*,string)=0;
+	virtual void render(Object*)=0;
+	virtual void update(Object*)=0;
 };
 class VObjectPluginRegistrar 
 {
@@ -74,7 +95,7 @@ class ObjectPluginRegistrar:VObjectPluginRegistrar
 };
 #define REGISTER_OBJECT(CLASSNAME) \
 	namespace { \
-	    static PluginSystem::PluginRegistrar<CLASSNAME> \
+	    static ObjectPluginRegistrar<CLASSNAME> \
 	    _registrar( #CLASSNAME ); \
     };
 #endif

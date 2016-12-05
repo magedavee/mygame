@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 #include "Graphics.h"
 #include "Texture.h"
 class Texture;
@@ -21,10 +22,7 @@ class SpriteSheet
 	{
 	    return map;
 	};
-	Rects* getFrameRect()
-	{
-	    return mesh->at(frame);
-	}
+	Rects* getFrameRect();
 	~SpriteSheet();
 	
 };
