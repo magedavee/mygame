@@ -67,8 +67,8 @@ class RoomRegistrar:VRoomRegistrar
 class Room:public VRoom
 {
     protected:
-	vector<Object*>  s_obj;
-	Game *game;
+	 
+	vector<shared_ptr<Object>> s_obj;
     public:
 	Room();
 	void update();

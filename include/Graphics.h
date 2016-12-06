@@ -1,7 +1,10 @@
 #include <string>
 #include <vector>
+#include <memory>
+#include <map>
 #include <utility>
 #include <stdint.h>
+#include <iostream>
 #include "OGL.h"
 #include "SpriteSheet.h"
 using namespace std;
@@ -27,7 +30,7 @@ typedef struct
 #include "Game.h"
 #include "SDLINC.h"
 #include "Texture.h"
-
+using namespace std;
 class Game;
 class Texture;
 class SpriteSheet;
@@ -54,6 +57,42 @@ public:
 	virtual void addSprite(SpriteSheet* sprite)=0;
 
 
+};
+class VGraphicsRegistrar 
+{
+    public:        
+	virtual std::  shared_ptr<Graphics> getPlugin() = 0;
+};    
+class GraphicsFactory 
+{
+    private:
+	std::map<std::string, VGraphicsRegistrar*> registry_;
+	GraphicsFactory(): registry_() {};
+	GraphicsFactory(GraphicsFactory const&) =delete;
+	void operator=(GraphicsFactory const&)=delete ;
+    public:
+	static GraphicsFactory& getInstance();
+	void registerClass(VGraphicsRegistrar * registrar,std::string name);
+	std::shared_ptr<Graphics> getPlugin(std::string name);
+};
+template<class TPlugin>
+class GraphicsRegistrar:VGraphicsRegistrar
+{
+    public:
+	GraphicsRegistrar(std::string classname): classname_(classname)
+	    {
+		GraphicsFactory &factory = GraphicsFactory::getInstance();
+		//cerr<<"db. GraphicsRegistrar classname  "<<classname_<<endl;
+		factory.registerClass(this, classname);
+	    };
+	std::shared_ptr<Graphics> getPlugin()
+	{
+	    std::shared_ptr<Graphics> plugin(new TPlugin());
+	    //cerr<<"db new graphics "<<plugin<<endl;
+	    return plugin;
+	};
+    private:
+	std::string classname_;
 };
 
 class GraphicsSDL:public Graphics
@@ -110,5 +149,11 @@ public:
 
 
 };
+#define REGISTER_GRAPHICS(CLASSNAME) \
+	namespace { \
+	    static GraphicsRegistrar<CLASSNAME> \
+	    graphics_registrar( #CLASSNAME ); \
+    };
 
-#endif 
+#endif
+

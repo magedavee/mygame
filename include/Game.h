@@ -16,11 +16,6 @@ class SpritedObject;
 class VRoom;
 
 using namespace libconfig;
-typedef struct
-{
-    string g_mode;
-}
-GameSettings;
 class Game
 {
 protected:
@@ -28,20 +23,15 @@ protected:
 private:
 	bool initGame();
 	SDL_Event event;
-	Graphics *graphics;
 	unique_ptr<VRoom>  room ;
+	shared_ptr<Graphics>  graphics ;
 	int argc;
 	char *args[];
 	void processCMDLine();
-	GameSettings game_settings;
 	map<string,int> modes;
+	string graphics_mode;
 
 public:
-	enum GraphicsMode
-	{
-	    OGL,
-	    SDL
-	} graphMode;
 	char * assetDir;
 	static Game * getInstance();
 	virtual ~Game();
@@ -59,7 +49,7 @@ public:
 	/*
 		renders to the sceen.
 	*/
-	Graphics * getGraphics();
+	shared_ptr<Graphics> getGraphics();
 
 };
 

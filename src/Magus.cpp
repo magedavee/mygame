@@ -4,12 +4,12 @@
 #include<string>
 #include<vector>
 REGISTER_OBJECT(Magus)
-void Magus::init(Object* obj,string id)
+Magus::Magus():x(0),y(0)
 {
+    //cerr<<"db Magus() \n ";
     string name = "/home/mage/Pictures/GameSprites/res/magus2.png";
-    obj->setX(0);
-    obj->setY(0);
-    obj->addSprite(name);
+    sprite=new SpriteSheet(name);
+    //cerr<<"db Magus sprite "<<sprite<<endl;
     for(int i=0;i<5;++i)
     {
 	Rects* rect=new Rects();
@@ -17,29 +17,33 @@ void Magus::init(Object* obj,string id)
 	rect->y=0;
 	rect->h=32;
 	rect->w=32;
-	obj->getSprites()->at(0)->addRect(rect);
+	sprite->addRect(rect);
     }
     
     //obj->setSprites(new vector<SpriteSheet*>());
 }
-void Magus::render(Object* obj)
+void Magus::render()
 {
     //cerr<<"db magus render \n";
     auto game=Game::getInstance();
     Rects* dst=new Rects();
-    dst->x=obj->getX();
-    dst->y=obj->getY();
+    dst->x=x;
+    dst->y=y;
     dst->w=32;
     dst->h=32;
     //cerr<<"db dst "<<dst<<endl;
-    Rects* src=obj->getSprites()->at(0)->getFrameRect();
+    //cerr<<"db magus sprite "<<sprite<<endl;
+    Rects* src=sprite->getFrameRect();
     //cerr<<"db src "<<src<<endl;
-    Texture* text=obj->getSprites()->at(0)->getTexture();
-    Graphics * graphics=game->getGraphics();
-    //cerr<<"db graphics "<<graphics<<endl;
-    game->getGraphics()->render(text,src,dst);
+    Texture* text=sprite->getTexture();
+    //cerr<<"db getGraphics "<<src<<endl;
+    auto  graphics=game->getGraphics();
+    //cerr<<"db getGraphics graphics "<<graphics<<endl;
+    //cerr<<"db rennder "<<src<<endl;
+    graphics->render(text,src,dst);
+    delete dst;
 }
-void Magus::update(Object* obj)
+void Magus::update()
 {
 
 }

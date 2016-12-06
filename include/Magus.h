@@ -1,11 +1,17 @@
 #ifndef MAGUS
 #define MAGUS
 #include"Object.h"
-class Magus:public VObjectPlugin
+#include"SpriteSheet.h"
+#include"Graphics.h"
+#include<vector>
+class Magus:public Object
 {
+    SpriteSheet *sprite;
+    vector<Rects*> rects;  
+    int x,y;
     public:
-	void init(Object*,string);
-	void update(Object*);
-	void render(Object*);
+	Magus();
+	void update();
+	void render();
 };
 #endif

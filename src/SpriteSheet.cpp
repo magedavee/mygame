@@ -5,6 +5,7 @@
 
 SpriteSheet::SpriteSheet(string name):frame(0)
 {
+    //cerr<<"db SpriteSheet() \n ";
     Game* game=Game::getInstance();
     this->map=game->getGraphics()->loadTexture(name.c_str());
     this->render_rect.x=0;
@@ -14,13 +15,10 @@ SpriteSheet::SpriteSheet(string name):frame(0)
     this->mesh=new vector<Rects*>();
 }
 
-SpriteSheet::~SpriteSheet()
-{
-}
 
 void SpriteSheet::addRect(Rects *rect)
 {
-    if(!mesh)
+    if(mesh==NULL)
     {
 	mesh=new vector<Rects*>();
 	//cerr<<"db addRect new mesh "<< mesh<<endl;
@@ -45,4 +43,14 @@ Rects* SpriteSheet::getFrameRect()
     //cerr<<"db getFrameRect "<< mesh<<endl;
     //cerr<<"db getFrameRect "<< mesh->size()<<endl;
     return this->mesh->at(frame);
+}
+
+SpriteSheet::~SpriteSheet()
+{
+    for(auto it=mesh->begin();it != mesh->end();++it)
+    {
+	delete *it;
+    }
+    delete map;
+    delete mesh;
 }

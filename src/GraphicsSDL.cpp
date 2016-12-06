@@ -5,7 +5,7 @@
 #include "SpriteSheet.h"
 #include <iostream>
 
-
+REGISTER_GRAPHICS(GraphicsSDL)
 GraphicsSDL::GraphicsSDL()
 {
 /*	glutInit( &argc, args );

@@ -16,6 +16,7 @@ class SpriteSheet
 	int frame;
     public:
 	SpriteSheet(std::string  name);
+	~SpriteSheet();
 	void addRect(Rects *rect);
 	void setFrame(int frame);
 	Texture* getTexture()
@@ -23,7 +24,6 @@ class SpriteSheet
 	    return map;
 	};
 	Rects* getFrameRect();
-	~SpriteSheet();
 	
 };
 

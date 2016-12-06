@@ -12,8 +12,6 @@ static Game *  instance=NULL;
 Game::Game()
 {
 	//cerr<<"db Creating game \n";
-    modes["OGL"]=OGL;
-    modes["SDL"]=SDL;
 }
 
 void Game::setCMDLine(int argc, char* args[])
@@ -61,7 +59,7 @@ Game::~Game()
 {
     //cerr<<"db deleting game \n";
 
-    }
+}
 
 bool Game:: initGame()
 {
@@ -86,25 +84,25 @@ bool Game:: initGame()
     }
     
     Setting& settings=cfg.getRoot();
-    string g_mode;
-    settings["game"].lookupValue("graphics",g_mode);
-    game_settings.g_mode=g_mode;
-    graphMode=OGL;
-    switch(modes[g_mode])
-    {
-    case SDL:
-	//cerr<<"db SDL graphics mode\n";
-	this->graphics=new GraphicsSDL();
-	//cerr<<"db  graphics "<<graphics<<endl;
-	break;
-    case OGL:
-	//cerr<<"db OpenGL graphics mode\n";
-	this->graphics=new GraphicsGL();
-	//cerr<<"db  graphics "<<graphics<<endl;
-	break;
-    }
+    settings["game"].lookupValue("graphics",graphics_mode);
+    //cerr<<"db. initGame g_mode "<<graphics_mode<<endl;
+    auto &g_factory = GraphicsFactory::getInstance();
+    auto g=g_factory.getPlugin(graphics_mode);
+    graphics=g;
+    //switch(modes[g_mode])
+    //{
+    //case SDL:
+	////cerr<<"db SDL graphics mode\n";
+	//this->graphics=new GraphicsSDL();
+	////cerr<<"db  graphics "<<graphics<<endl;
+	//break;
+    //case OGL:
+	////cerr<<"db OpenGL graphics mode\n";
+	//this->graphics=new GraphicsGL();
+	////cerr<<"db  graphics "<<graphics<<endl;
+	//break;
+    //}
     auto &factory = RoomFactory::getInstance();
-    //room =new Room();
     room=factory.getRoom("Room");
     return true;
 }
@@ -151,9 +149,8 @@ void Game::render()
     room->render();
 }
 
-Graphics* Game::getGraphics()
+shared_ptr<Graphics>Game::getGraphics()
 {
-    //cerr<<"db. getGraphics\n";
-    //cerr<<"db. graphics "<<graphics<<endl;
-	return this->graphics;
+    //cerr<<"db.Game  getGraphics\n";
+    return graphics;
 }

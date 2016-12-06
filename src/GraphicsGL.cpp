@@ -3,7 +3,7 @@
 #include "Attributes.h"
 #include <iostream>
 #include "Graphics.h"
-
+REGISTER_GRAPHICS(GraphicsGL)
 GraphicsGL::GraphicsGL()
 {
 /*	glutInit( &argc, args );
