@@ -36,7 +36,8 @@ void SpriteSheet::setFrame(int frame)
     {
 	this->frame=frame;
     }
-    std::cout<<"error frame not in bounds\n";
+    else
+	std::cout<<"error frame not in bounds\n";
 }
 Rects* SpriteSheet::getFrameRect()
 {

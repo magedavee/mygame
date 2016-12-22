@@ -4,7 +4,7 @@
 #include<string>
 #include<vector>
 REGISTER_OBJECT(Magus)
-Magus::Magus():x(0),y(0)
+Magus::Magus():x(0),y(0),frame(0),pause(10),counter(1)
 {
     //cerr<<"db Magus() \n ";
     string name = "/home/mage/Pictures/GameSprites/res/magus2.png";
@@ -45,5 +45,22 @@ void Magus::render()
 }
 void Magus::update()
 {
+    if(counter%10!=0)
+    {
+	++counter;
+    }
+    else
+    {
+	counter=1;
+	if(frame<sprite->getMeshSize())
+	{
+	    //cerr<<"db. Magus update frame "<<frame<<endl;
+	    sprite->setFrame(frame++);
+	}
+	else
+	{
+	    frame=0;
+	}
+    }
 
 }

@@ -8,7 +8,7 @@ class Magus:public Object
 {
     SpriteSheet *sprite;
     vector<Rects*> rects;  
-    int x,y;
+    int x,y,frame,counter,pause;
     public:
 	Magus();
 	void update();

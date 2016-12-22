@@ -23,6 +23,10 @@ class SpriteSheet
 	{
 	    return map;
 	};
+	int getMeshSize()
+	{
+	    return mesh->size();
+	};
 	Rects* getFrameRect();
 	
 };
