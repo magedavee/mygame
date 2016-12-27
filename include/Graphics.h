@@ -78,8 +78,9 @@ class GraphicsFactory
 template<class TPlugin>
 class GraphicsRegistrar:VGraphicsRegistrar
 {
+    std::shared_ptr<Graphics> plugin;
     public:
-	GraphicsRegistrar(std::string classname): classname_(classname)
+	GraphicsRegistrar(std::string classname): classname_(classname),plugin(new TPlugin())
 	    {
 		GraphicsFactory &factory = GraphicsFactory::getInstance();
 		//cerr<<"db. GraphicsRegistrar classname  "<<classname_<<endl;
@@ -87,7 +88,7 @@ class GraphicsRegistrar:VGraphicsRegistrar
 	    };
 	std::shared_ptr<Graphics> getPlugin()
 	{
-	    std::shared_ptr<Graphics> plugin(new TPlugin());
+	    
 	    //cerr<<"db new graphics "<<plugin<<endl;
 	    return plugin;
 	};

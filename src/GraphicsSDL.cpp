@@ -17,15 +17,15 @@ GraphicsSDL::GraphicsSDL()
         glutInitWindowSize( SCREENWIDTH, SCREENHEIGHT );
         glutCreateWindow( "OpenGL" );
 */
-    GLuint gVertexBuffer = 0;
-    if(!this->init())
-    {
-	    //cerr<<"db "<<"failed init of graphics.\n";
-    }
-    else
-    {
-	//cerr<<"db "<<"graphics ok\n";
-    }
+    //GLuint gVertexBuffer = 0;
+    //if(!this->init())
+    //{
+	    ////cerr<<"db "<<"failed init of graphics.\n";
+    //}
+    //else
+    //{
+	////cerr<<"db "<<"graphics ok\n";
+    //}
 }
 
 GraphicsSDL::~GraphicsSDL()

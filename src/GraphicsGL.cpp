@@ -17,14 +17,14 @@ GraphicsGL::GraphicsGL()
 */
     //cerr<<"db "<<"DEBUG is on in GraphicsGL\n";
     GLuint gVertexBuffer = 0;
-    if(!this->init())
-    {
-	    //cerr<<"db "<<"failed init of graphics.\n";
-    }
-    else
-    {
-	//cerr<<"db "<<"graphics ok\n";
-    }
+    //if(!this->init())
+    //{
+	    ////cerr<<"db "<<"failed init of graphics.\n";
+    //}
+    //else
+    //{
+	////cerr<<"db "<<"graphics ok\n";
+    //}
     void EnableTransparency();
 }
 

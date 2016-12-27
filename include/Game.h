@@ -3,6 +3,7 @@
 #include "SDLINC.h"
 #include "Graphics.h"
 #include "Room.h"
+#include "EventHandler.h"
 #include <vector>
 #include <string>
 #include <map>
@@ -14,24 +15,31 @@ class SpriteSheet;
 class Object;
 class SpritedObject;
 class VRoom;
+class EventHandler;
 
 using namespace libconfig;
+//template<class type> bool lookUpValue(string  ,type&)
 class Game
 {
 protected:
 	Game();
 private:
 	bool initGame();
-	SDL_Event event;
+	shared_ptr<EventHandler>  event ;
 	unique_ptr<VRoom>  room ;
 	shared_ptr<Graphics>  graphics ;
 	int argc;
 	char *args[];
 	void processCMDLine();
-	map<string,int> modes;
-	string graphics_mode;
+	map<string,string> mode;
+	static Config cfg;
+	static constexpr const char* setting_file = "./settings/setting.cfg";
 
 public:
+	static bool initSettings();
+	static bool lookUpValue(string path,string name,string& value);
+	static bool lookUpValue(Setting& settings ,string name,string& value);
+	static Setting& lookUpRoot(string path);
 	char * assetDir;
 	static Game * getInstance();
 	virtual ~Game();
