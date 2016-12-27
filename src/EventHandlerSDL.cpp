@@ -39,7 +39,12 @@ void EventHandlerSDL::pollingEvent()
 	//cerr<<"db. <<"<<SDL_QUIT<<endl;
 	for(auto e:event_list)
 	{
+	    if(flags["QUIT"])
+	    {
+		break;
+	    }
 	    e->handleEvent(event,flags,i_states,f_states,c_states);
+
 	}
     }
      
