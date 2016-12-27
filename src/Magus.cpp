@@ -4,7 +4,7 @@
 #include<string>
 #include<vector>
 REGISTER_OBJECT(Magus)
-Magus::Magus():x(0),y(0),frame(0),pause(10),counter(1)
+Magus::Magus():x(0),y(0),frame(0),pause(12),counter(1),acc(10),vx(0),vy(0)
 {
     //cerr<<"db Magus() \n ";
     string name = "/home/mage/Pictures/GameSprites/res/magus2.png";
@@ -45,12 +45,35 @@ void Magus::render()
 }
 void Magus::update()
 {
-    if(counter%10!=0)
+    bool up=Game::getInstance()->getEventHandler()->checkFlag("UP");
+    bool down=Game::getInstance()->getEventHandler()->checkFlag("DOWN");
+    bool left=Game::getInstance()->getEventHandler()->checkFlag("LEFT");
+    bool right=Game::getInstance()->getEventHandler()->checkFlag("RIGHT");
+
+    if(counter%12!=0)
     {
 	++counter;
     }
     else
     {
+	if(up)
+	{
+	    vy-=acc;
+	}
+	if(down)
+	{
+	    vy+=acc;
+	}
+	if(right)
+	{
+	    vx+=acc;
+	}
+	if(left)
+	{
+	    vx-=acc;
+	}
+	y+=vy;
+	x+=vx;
 	counter=1;
 	if(frame<sprite->getMeshSize())
 	{

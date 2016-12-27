@@ -20,10 +20,10 @@ bool EventHandlerSDL::initEventHandler()
 
 	string name =event_settings[i];
 	//cerr<<"db name "<<name<<endl;
-	auto &e_factory=EventFactory::getInstance();
-	auto e=e_factory.getEvent(name);
-	event_list.push_back(e);
-	e->initEvent(events,flags,i_states,f_states,c_states);
+	auto &ev_factory=EventFactory::getInstance();
+	auto ev=ev_factory.getEvent(name);
+	ev->initEvent(&e,events,flags,i_states,f_states,c_states);
+	event_list.push_back(ev);
 	//cerr<<"db event_list size "<<event_list.size()<<endl;
 
     }
@@ -32,18 +32,24 @@ bool EventHandlerSDL::initEventHandler()
 
 void EventHandlerSDL::pollingEvent()
 {
-    while(SDL_PollEvent(&event))//polling
+    while(SDL_PollEvent(&e))//polling
     {
 
-	//cerr<<"db EventSDL pollingEvent event type "<<event.type<<endl;
-	//cerr<<"db. <<"<<SDL_QUIT<<endl;
-	for(auto e:event_list)
+	//cerr<<"db EventSDL pollingEvent Begin#####\n";
+	//cerr<<"db  event addr "<<&e<<endl;
+	//cerr<<"db  event type "<<e.type<<endl;
+	for(auto ev:event_list)
 	{
 	    if(flags["QUIT"])
 	    {
+		//cerr<<"db EventHandlerSDL polling Event QUIT break\n";
 		break;
 	    }
-	    e->handleEvent(event,flags,i_states,f_states,c_states);
+	    //cerr<<"db  befor event addr "<<&e<<endl;
+	    //cerr<<"db  befor event type "<<e.type<<endl;
+	    ev->handleEvent(flags,i_states,f_states,c_states);
+	    //cerr<<"db  befor event addr "<<&e<<endl;
+	    //cerr<<"db  befor event type "<<e.type<<endl;
 
 	}
     }

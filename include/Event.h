@@ -5,14 +5,30 @@
 #include<vector> 
 #include<string> 
 #include<memory> 
+#include<iostream> 
+#include<stdint.h>
+#include"EventHandlerSDL.h"
 using namespace std;
 class Event
 {
     protected:
+	SDL_Event *e;
     public:
     Event(){};
-    virtual void initEvent(vector<string>&,map<string,bool>&,map<string,int>& ,map<string,float>&,map<string,char>&)=0;
-    virtual void handleEvent(SDL_Event& event,map<string,bool>&,map<string,int>& ,map<string,float>&,map<string,char>&)=0;
+    virtual void initEvent(SDL_Event*,vector<string>&,map<string,bool>&,map<string,int>& ,map<string,float>&,map<string,char>&)=0;
+    virtual void handleEvent(map<string,bool>&,map<string,int>& ,map<string,float>&,map<string,char>&)=0;
+    bool testType(uint32_t type)
+    {
+	return e->key.keysym.sym ==type;
+    };
+    bool testKeyCode(uint32_t key_code)
+    {
+	return e->key.keysym.sym ==key_code;
+    };
+    bool testScanCode(uint32_t scan_code)
+    {
+	return e->key.keysym.sym ==scan_code;
+    };
     
 
 };

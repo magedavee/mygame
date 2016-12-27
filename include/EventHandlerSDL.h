@@ -8,11 +8,11 @@
 #include<string> 
 #include<memory> 
 using namespace std;
-
+class Event;
 class EventHandlerSDL:public EventHandler
 {
     vector<shared_ptr<Event>> event_list;
-    SDL_Event event;
+    SDL_Event e;
     public:
 	EventHandlerSDL();
 	void pollingEvent();

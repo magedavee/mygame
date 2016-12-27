@@ -154,15 +154,17 @@ bool Game:: initGame()
     //cerr<<"db. initGame e_mode "<<event_mode<<endl;
     
     mode["graphics"]=graphics_mode;
-    mode["event"]=event_mode;
+    mode["event_handler"]=event_mode;
     auto &g_factory = GraphicsFactory::getInstance();
     auto g=g_factory.getPlugin(graphics_mode);
     graphics=g;
     graphics->init();
     auto &e_factory = EventHandlerFactory::getInstance();
     auto e=e_factory.getEventHandler(event_mode);
-    event=e;
-    event->initEventHandler();
+    event_handler=e;
+    //cerr<<"db Game  initGame before initEventHandler  \n";
+    event_handler->initEventHandler();
+    //cerr<<"db Game  initGame after initEventHandler  \n";
     auto &factory = RoomFactory::getInstance();
     room=factory.getRoom("Room");
     return true;
@@ -171,11 +173,11 @@ void Game::mainGameLoop()
 {
 	bool quit=false;
 	Timer fps;
-	while(!event->checkFlag("QUIT"))
+	while(!event_handler->checkFlag("QUIT"))
 	{
 	    fps.start();
 	    //cerr<<"db begin main game loop\n";
-	    event->pollingEvent();
+	    event_handler->pollingEvent();
 		
 	    //cerr<<"db update\n";
 	    update();
@@ -205,4 +207,9 @@ shared_ptr<Graphics>Game::getGraphics()
 {
     //cerr<<"db.Game  getGraphics\n";
     return graphics;
+}
+shared_ptr<EventHandler>Game::getEventHandler()
+{
+    //cerr<<"db.Game  getGraphics\n";
+    return event_handler;
 }

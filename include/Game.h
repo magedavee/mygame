@@ -25,7 +25,7 @@ protected:
 	Game();
 private:
 	bool initGame();
-	shared_ptr<EventHandler>  event ;
+	shared_ptr<EventHandler>  event_handler ;
 	unique_ptr<VRoom>  room ;
 	shared_ptr<Graphics>  graphics ;
 	int argc;
@@ -58,6 +58,7 @@ public:
 		renders to the sceen.
 	*/
 	shared_ptr<Graphics> getGraphics();
+	shared_ptr<EventHandler> getEventHandler();
 
 };
 
