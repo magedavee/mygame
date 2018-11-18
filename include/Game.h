@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "Room.h"
 #include "EventHandler.h"
+#include "RTE.h"
 #include <vector>
 #include <string>
 #include <map>
@@ -19,7 +20,7 @@ class EventHandler;
 
 using namespace libconfig;
 //template<class type> bool lookUpValue(string  ,type&)
-class Game
+class Game:VRTE
 {
 protected:
 	Game();
@@ -43,8 +44,8 @@ public:
 	char * assetDir;
 	static Game * getInstance();
 	virtual ~Game();
-	void setCMDLine(int arcg,char *args[]);
-	void mainGameLoop();
+	//void mainGameLoop();
+	void run();
 	
 	/*
 		The Top level of the game loop. Polls Events, updates state, renders to sceen.

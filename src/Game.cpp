@@ -15,22 +15,7 @@ Game::Game()
 	//cerr<<"db Creating game \n";
 }
 
-void Game::setCMDLine(int argc, char* args[])
-{
-	argc=argc;
-	args=args;
-	if(argc>1)
-	{
-		processCMDLine();
-	}
-}
 
-void Game::processCMDLine()
-{
-
-	//cerr<<"db cmd line\n";
-
-}
 
 
 Game* Game::getInstance()
@@ -169,7 +154,7 @@ bool Game:: initGame()
     room=factory.getRoom("Room");
     return true;
 }
-void Game::mainGameLoop()
+void Game::run()
 {
 	bool quit=false;
 	Timer fps;
