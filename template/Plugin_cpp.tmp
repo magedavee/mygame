@@ -1,0 +1,8 @@
+#include"%(name)s.h"
+#include<string>
+#include<vector>
+REGISTER_%(BASE)s(%(name)s)
+%(name)s::%(name)s()
+{
+
+}

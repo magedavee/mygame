@@ -1,0 +1,72 @@
+#ifndef %(NAME)s_HH
+#define %(NAME)s_HH
+#include <libconfig.h++>
+#include <string>
+#include <map>
+#include <memory>
+
+class V%(name)s
+{
+};
+
+
+class V%(name)sRegistrar 
+{
+    public:        
+	virtual std::  shared_ptr<V%(name)s> get%(name)s() = 0;
+};    
+class %(name)sFactory 
+{
+    private:
+	std::map<std::string, V%(name)sRegistrar*> registry_;
+	%(name)sFactory(): registry_() {};
+	%(name)sFactory(%(name)sFactory const&) =delete;
+	void operator=(%(name)sFactory const&)=delete ;
+    public:
+	static %(name)sFactory& getInstance();
+	void registerClass(V%(name)sRegistrar * registrar,std::string name);
+	std::shared_ptr<V%(name)s> get%(name)s(std::string name);
+};
+template<class T%(name)s>
+class %(name)sRegistrar:V%(name)sRegistrar
+{
+    public:
+	%(name)sRegistrar(std::string classname): classname_(classname)
+	    {
+		%(name)sFactory &factory = %(name)sFactory::getInstance();
+		factory.registerClass(this, classname);
+	    };
+	std::shared_ptr<V%(name)s> get%(name)s()
+	{
+	    std::shared_ptr<V%(name)s> plugin(new T%(name)s());
+	    return plugin;
+	};
+    private:
+	std::string classname_;
+};
+
+template<class T%(name)s>
+class %(name)sRegistrarSingleton:V%(name)sRegistrar
+{
+    std::shared_ptr<V%(name)s> plugin;
+    public:
+	%(name)sRegistrarSingleton(std::string classname): classname_(classname),plugin(new T%(name)s())
+	    {
+		%(name)sFactory &factory = %(name)sFactory::getInstance();
+		factory.registerClass(this, classname);
+	    };
+	std::shared_ptr<V%(name)s> get%(name)s()
+	{
+	    return plugin;
+	};
+    private:
+	std::string classname_;
+};
+
+#define REGISTER_%(NAME)s(CLASSNAME) \
+	namespace { \
+	    static %(name)sRegistrar<CLASSNAME> \
+	    _registrar( #CLASSNAME ); \
+    };
+
+#endif

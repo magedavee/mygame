@@ -1,0 +1,11 @@
+#ifndef %(NAME)s_H
+#define %(NAME)s_H
+#include"%(base)s.h"
+#include<vector>
+class %(name)s:public V%(base)s 
+{
+    public:
+	%(name)s();
+    private:
+};
+#endif

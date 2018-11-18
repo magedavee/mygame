@@ -1,0 +1,19 @@
+#include"%(name)s.h"
+
+%(name)sFactory& %(name)sFactory::getInstance()
+{
+    static %(name)sFactory instance;
+    return instance;
+}
+void %(name)sFactory::registerClass(V%(name)sRegistrar* registrar, std::string name) 
+{
+    registry_[name] = registrar;
+}
+std::shared_ptr<V%(name)s> %(name)sFactory::get%(name)s(std::string name) 
+{
+	    /* throws out_of_range if plugin unknown */
+    V%(name)sRegistrar* registrar = registry_.at(name);
+    return registrar->get%(name)s();
+}
+
+
